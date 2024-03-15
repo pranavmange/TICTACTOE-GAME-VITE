@@ -3,17 +3,23 @@ import { useState } from 'react';
 
 const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
-  console.log(squares);
+  const [isNext, setIsXNext] = useState(false);
 
   const handleSquareCLick = clickedposition => {
+    if (squares[clickedposition]) {
+      return;
+    }
+
     setSquares(currrentSquares => {
       return currrentSquares.map((squareValue, position) => {
         if (clickedposition === position) {
-          return 'x';
+          return isNext ? 'X' : '0';
         }
         return squareValue;
       });
     });
+
+    setIsXNext(currentIsXNext => !currentIsXNext);
   };
 
   const renderSquare = position => {
